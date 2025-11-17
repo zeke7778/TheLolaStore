@@ -9,12 +9,20 @@ import orderRoutes from "./routes/orderRoutes.js";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+// ✅ FIXED CORS
+app.use(
+  cors({
+    origin: ["https://the-lola-store.vercel.app"], // your Vercel frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
+
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
-
 
 connectDB();
 
