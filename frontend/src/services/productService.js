@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const getProducts = async (params = {}) => {
-  const res = await api.get(`/products`, { params });
+  const res = await api.get("/products", { params });
   return res.data;
 };
 
@@ -11,7 +11,7 @@ export const getProductById = async (id) => {
 };
 
 export const createProduct = async (payload) => {
-  const res = await api.post(`/products`, payload, {
+  const res = await api.post("/products", payload, {
     headers: payload instanceof FormData
       ? { "Content-Type": "multipart/form-data" }
       : {},
