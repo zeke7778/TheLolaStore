@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ p, onAdd }) => {
-  // If image is from DB: prepend backend URL
-  const imageURL = p.image
-  ? `${process.env.REACT_APP_IMAGE_URL}/${p.image}`
-  : "/assets/placeholder.jpg";
+  // FIXED image handling
+  const imageURL = p.image?.startsWith("http")
+    ? p.image
+    : `${process.env.REACT_APP_IMAGE_URL}/${p.image}`;
 
   return (
     <div className="card">
@@ -37,4 +37,5 @@ const ProductCard = ({ p, onAdd }) => {
 };
 
 export default ProductCard;
+
 

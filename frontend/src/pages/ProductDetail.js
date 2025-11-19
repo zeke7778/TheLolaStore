@@ -27,18 +27,27 @@ const ProductDetail = () => {
   if (loading) return <Loader />;
   if (!p) return <div>Product not found</div>;
 
+  // FIXED IMAGE HANDLING
+  const imageURL = p.image?.startsWith("http")
+    ? p.image
+    : `${process.env.REACT_APP_IMAGE_URL}/${p.image}`;
+
   return (
     <div className="product-detail-container">
       <div className="product-image">
-        <img src={p.image || "/assets/placeholder.jpg"} alt={p.name} />
+        <img src={imageURL} alt={p.name} />
       </div>
+
       <div className="product-info">
         <h2>{p.name}</h2>
         <div className="category">{p.category}</div>
         <div className="price">₹{p.price}</div>
         <p className="description">{p.description}</p>
+
         <div style={{ display: "flex", gap: 8 }}>
-          <button className="btn" onClick={() => addToCart(p)}>Add to Cart</button>
+          <button className="btn" onClick={() => addToCart(p)}>
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
