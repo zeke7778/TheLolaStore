@@ -4,11 +4,16 @@ import Product from "../models/Product.js";
 export const getProducts = async (req, res) => {
   try {
     const keyword = req.query.keyword
-      ? { name: { $regex: req.query.keyword, $options: "i" } }
+      ? {
+          $or: [
+            { name: { $regex: req.query.keyword, $options: "i" } },
+            { description: { $regex: req.query.keyword, $options: "i" } },
+          ],
+        }
       : {};
 
     const categoryFilter = req.query.category
-      ? { category: req.query.category }
+      ? { category: { $regex: req.query.category, $options: "i" } }
       : {};
 
     const products = await Product.find({
@@ -21,6 +26,7 @@ export const getProducts = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // 📌 Get single product
 export const getProductById = async (req, res) => {
