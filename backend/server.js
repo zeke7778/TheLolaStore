@@ -18,6 +18,7 @@ app.use(
     origin: [
       "https://thelolastore.vercel.app",
       "https://the-lola-store.vercel.app",
+      "https://the-lola-store-do0o9bkpj-zekes-projects-1fad8d1e.vercel.app",
       "http://localhost:3000",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
