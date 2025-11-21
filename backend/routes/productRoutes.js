@@ -13,28 +13,22 @@ import { admin } from "../middleware/adminMiddleware.js";
 
 const router = express.Router();
 
-// -----------------------------
-// ⭐ PUBLIC ROUTES
-// -----------------------------
+// PUBLIC ROUTES
 router.get("/", getProducts);
 router.get("/:id", getProductById);
 
-// -----------------------------
-// ⭐ ADMIN ONLY ROUTES
-// -----------------------------
-// Create product (supports image)
+// ADMIN ONLY ROUTES
 router.post(
   "/",
   protect,
   admin,
   upload.fields([
-    { name: "image", maxCount: 1 },      // main image
-    { name: "images", maxCount: 5 },     // extra images
+    { name: "image", maxCount: 1 },
+    { name: "images", maxCount: 5 },
   ]),
   createProduct
 );
 
-// Update product (supports image change)
 router.put(
   "/:id",
   protect,
@@ -46,12 +40,6 @@ router.put(
   updateProduct
 );
 
-// Delete product
-router.delete(
-  "/:id",
-  protect,
-  admin,
-  deleteProduct
-);
+router.delete("/:id", protect, admin, deleteProduct);
 
 export default router;
