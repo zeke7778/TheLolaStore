@@ -8,7 +8,11 @@ import Register from "./pages/Register";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import AdminPanel from "./pages/AdminPanel";
+import EditProduct from "./pages/EditProduct";
 import ThankYou from "./pages/ThankYou";
+import Checkout from "./pages/Checkout";
+import UserDashboard from "./pages/UserDashboard";
+import CheckoutDetails from "./pages/CheckoutDetails";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -23,9 +27,13 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={<UserDashboard />} />
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout-details" element={<CheckoutDetails />} />
               <Route path="/admin" element={<AdminPanel />} />
+              <Route path="/admin/products/:id/edit" element={<EditProduct />} />
               <Route path="/thank-you" element={<ThankYou />} />
             </Routes>
           </main>

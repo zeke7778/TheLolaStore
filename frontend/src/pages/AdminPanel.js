@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ProductForm from "../components/ProductForm";
 import ProductList from "../components/ProductList";
+import { useNavigate } from "react-router-dom";
 import { getProducts, deleteProduct } from "../services/productService";
 
 const AdminPanel = () => {
   const [products, setProducts] = useState([]);
+
+  const navigate = useNavigate();   // <-- FIXED
 
   const loadProducts = async () => {
     try {
@@ -55,9 +58,7 @@ const AdminPanel = () => {
               <div style={{ display: "flex", gap: 8 }}>
                 <button
                   className="btn small"
-                  onClick={() =>
-                    window.alert("Edit UI not implemented yet")
-                  }
+                  onClick={() => navigate(`/admin/products/${p._id}/edit`)}
                 >
                   Edit
                 </button>
@@ -78,3 +79,4 @@ const AdminPanel = () => {
 };
 
 export default AdminPanel;
+

@@ -1,5 +1,5 @@
 import express from "express";
-import upload from "../middleware/upload.js";  // <-- multer middleware
+import upload from "../middleware/upload.js";
 import {
   getProducts,
   getProductById,
@@ -13,15 +13,45 @@ import { admin } from "../middleware/adminMiddleware.js";
 
 const router = express.Router();
 
+// -----------------------------
+// ⭐ PUBLIC ROUTES
+// -----------------------------
 router.get("/", getProducts);
 router.get("/:id", getProductById);
 
-// ⬇️ Add "upload.single('image')" for product image upload
-router.post("/", protect, admin, upload.single("image"), createProduct);
+// -----------------------------
+// ⭐ ADMIN ONLY ROUTES
+// -----------------------------
+// Create product (supports image)
+router.post(
+  "/",
+  protect,
+  admin,
+  upload.fields([
+    { name: "image", maxCount: 1 },      // main image
+    { name: "images", maxCount: 5 },     // extra images
+  ]),
+  createProduct
+);
 
-// ⬇️ Also for updating a product image
-router.put("/:id", protect, admin, upload.single("image"), updateProduct);
+// Update product (supports image change)
+router.put(
+  "/:id",
+  protect,
+  admin,
+  upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "images", maxCount: 5 },
+  ]),
+  updateProduct
+);
 
-router.delete("/:id", protect, admin, deleteProduct);
+// Delete product
+router.delete(
+  "/:id",
+  protect,
+  admin,
+  deleteProduct
+);
 
 export default router;

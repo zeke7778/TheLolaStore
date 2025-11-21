@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ p, onAdd }) => {
-  // FIXED image handling
+const ProductCard = ({ p, onAdd, renderActions }) => {
   const imageURL = p.image?.startsWith("http")
     ? p.image
     : `${process.env.REACT_APP_IMAGE_URL}/${p.image}`;
@@ -25,17 +24,27 @@ const ProductCard = ({ p, onAdd }) => {
           marginTop: 8,
         }}
       >
-        <button className="btn small" onClick={() => onAdd(p)}>
-          Add
-        </button>
-        <Link to={`/product/${p._id}`} className="btn small secondary">
-          View
-        </Link>
+        {/* If admin gave custom actions → show them */}
+        {renderActions ? (
+          renderActions(p)
+        ) : (
+          <>
+            {/* Normal user buttons */}
+            <button className="btn small" onClick={() => onAdd(p)}>
+              Add
+            </button>
+
+            <Link to={`/product/${p._id}`} className="btn small secondary">
+              View
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
 export default ProductCard;
+
 
 

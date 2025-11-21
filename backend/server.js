@@ -11,45 +11,55 @@ dotenv.config();
 const app = express();
 
 // -------------------------
-// ✅ CORS — FULLY FIXED (Express 5 Safe)
+// ✅ CORS — FIXED FOR VERСEL FRONTEND & RENDER BACKEND
 // -------------------------
+const allowedOrigins = [
+  "https://thelolastore.vercel.app",
+  "https://the-lola-store.vercel.app",
+  "https://the-lola-store-do0o9bkpj-zekes-projects-1fad8d1e.vercel.app",
+  "http://localhost:3000",
+];
+
 app.use(
   cors({
-    origin: [
-      "https://thelolastore.vercel.app",
-      "https://the-lola-store.vercel.app",
-      "https://the-lola-store-do0o9bkpj-zekes-projects-1fad8d1e.vercel.app",
-      "http://localhost:3000",
-    ],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS blocked: " + origin));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
 
-// ❗ Do NOT use: app.options("*") — BREAKS Express 5, causes PathError
-
+// -------------------------
+// EXPRESS MIDDLEWARE
+// -------------------------
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // -------------------------
-// ✅ SERVE UPLOADS FOLDER FOR IMAGES
+// 📁 SERVE UPLOADS FOLDER (STATIC IMAGES)
 // -------------------------
 app.use("/uploads", express.static("uploads"));
 
 // -------------------------
-// ✅ ROUTES
+// API ROUTES
 // -------------------------
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 
 // -------------------------
-// ✅ CONNECT DATABASE
+// CONNECT DB
 // -------------------------
 connectDB();
 
 // -------------------------
-// TEST ROUTE
+// DEFAULT ROUTE
 // -------------------------
 app.get("/", (req, res) => {
   res.send("The Lola Store API is running...");
