@@ -35,7 +35,7 @@ ${cart.map(i => `• ${i.name} (Qty: ${i.qty}) - ₹${i.price}`).join("\n")}
 💰 *Total Price*: ₹${totalPrice()}
     `;
 
-    const whatsappURL = `https://wa.me/9109867778?text=${encodeURIComponent(orderMessage)}`;
+    const whatsappURL = `https://wa.me/919109867778?text=${encodeURIComponent(orderMessage)}`;
 
     window.open(whatsappURL, "_blank");
 
