@@ -14,9 +14,8 @@ const app = express();
 // ✅ CORS — FIXED FOR VERСEL FRONTEND & RENDER BACKEND
 // -------------------------
 const allowedOrigins = [
-  "https://thelolastore.vercel.app",
   "https://the-lola-store.vercel.app",
-  "https://the-lola-store-do0o9bkpj-zekes-projects-1fad8d1e.vercel.app",
+  "https://thelolastore.onrender.com",
   "http://localhost:3000",
 ];
 

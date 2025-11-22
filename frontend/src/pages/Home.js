@@ -15,9 +15,10 @@ const Home = () => {
     setLoading(true);
     try {
       const data = await getProducts(params);
-      setProducts(data);
+      setProducts(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error(err);
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -88,12 +89,8 @@ const Home = () => {
 
       {/* Product Section */}
       <section className="products-section container">
-        <h2 className="section-title">Featured Products</h2>
-        {loading ? (
-          <Loader />
-        ) : (
-          <ProductList products={products} onAdd={addToCart} />
-        )}
+        <h2 className="section-title">Featured</h2>
+        {loading ? <Loader /> : <ProductList products={products} onAdd={addToCart} />}
       </section>
     </div>
   );
