@@ -16,6 +16,7 @@ const app = express();
 const allowedOrigins = [
   "https://the-lola-store.vercel.app",
   "https://thelolastore.onrender.com",
+  "https://the-lola-store-rjqp1o5r7-zekes-projects-1fad8d1e.vercel.app",
   "http://localhost:3000",
 ];
 
